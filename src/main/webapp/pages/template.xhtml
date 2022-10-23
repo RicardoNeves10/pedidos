@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" >
+
+	<h:head>
+		<h:outputScript name="locales.js" />
+		<h:outputStylesheet name="style.css" />
+	
+		<link rel="shortcut icon" type="image/x-png" href="../images/favicon.png"/>
+    </h:head>
+  
+    <h:body>
+    	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" > 
+		    <p:graphicImage value="../images/loading2.gif" />
+		    <h2 style="text-align: center;">Carregando...</h2>
+		</p:dialog>
+		
+		<p:dialog modal="true" height="300" width="400" widgetVar="salvar-modal" showEffect="slideDown" styleClass="salvar-modal" draggable="false" resizable="false" closeOnEscape="true" >
+	    	<h1>Salvo com sucesso!</h1>
+	    	<img src="../images/check.gif" height="200" width="300" /> 
+	    </p:dialog>
+	    
+	    <p:dialog modal="true" height="300" width="400" widgetVar="excluir-modal" showEffect="slideDown" styleClass="salvar-modal" draggable="false" resizable="false" closeOnEscape="true" >
+	    	<h1>Excluído com sucesso!</h1>
+	    	<img src="../images/check.gif" height="200" width="300" /> 
+	    </p:dialog>
+	    
+	    <p:layout fullPage="true" >
+	    	<p:layoutUnit position="north" size="85" >
+				<ui:include src="topo.xhtml"/>
+	    	</p:layoutUnit>
+	    
+	        <p:layoutUnit position="west" >	
+	     		<ui:include src="menu.xhtml" />
+	     	</p:layoutUnit>
+	     	
+	        <p:layoutUnit position="center" >
+	     		<ui:insert name="content" />
+	     	</p:layoutUnit>
+	     </p:layout>
+    </h:body>
+</html>

@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui" >
+				
+	<h:form>
+		<p:panelMenu id="menu" widgetVar="menu" >
+			<p:submenu label="INÍCIO DO SISTEMA" >
+				<p:menuitem value="Início" icon="ui-icon-home" action="#{menuBean.redirecionarIndex()}" />
+			</p:submenu>
+			
+			<p:submenu label="CADASTROS BÁSICOS" >
+				<p:menuitem value="Cadastrar Cliente" icon="ui-icon-person" action="#{menuBean.redirecionarCliente()}" />
+			</p:submenu>
+		</p:panelMenu>	
+	</h:form>
+
+</ui:composition>

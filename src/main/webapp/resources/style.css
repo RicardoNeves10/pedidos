@@ -1,0 +1,15 @@
+@charset "ISO-8859-1";
+
+.data-table {
+	margin-top: 2%;
+}
+
+.button-group {
+	margin-top: 2%;
+	margin-left: 1%;
+	margin-bottom: 1%;
+}
+
+.salvar-modal {
+	text-align: center;
+}

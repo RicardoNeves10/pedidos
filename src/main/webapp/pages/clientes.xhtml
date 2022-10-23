@@ -1,0 +1,138 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui" 
+				template="template.xhtml" >
+			
+	<ui:define name="content">
+		<title>Cadastrar Cliente</title>
+		
+		<h:form>
+			<h:panelGrid columns="4" cellpadding="10" >
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" label="nome" value="#{clienteBean.cliente.nome}" size="40" placeholder="Ex: Steve Jobs" required="true" maxlength="100" />
+				
+				<p:outputLabel for="data-nasc" value="Data Nasc.:"/>
+				<p:calendar id="data-nasc" label="data-nasc" value="#{clienteBean.cliente.dataNascimento}" size="12" 
+					locale="pt_BR_calendar" placeholder="Ex: 01/01/2000" mask="99/99/9999" effect="slideDown" pattern="dd/MM/yyyy" >
+					<f:convertDateTime locale="pt_BR" />
+				</p:calendar>
+				
+				<p:outputLabel for="sexo" value="Sexo: " />
+				<p:selectOneMenu id="sexo" value="#{clienteBean.cliente.sexo}" required="true" >
+					<f:selectItem itemLabel="Selecione seu sexo" />
+					<f:selectItem itemValue="Masculino" itemLabel="Masculino" />
+					<f:selectItem itemValue="Feminino" itemLabel="Feminino" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="cep" value="Cep:" />
+				<p:inputMask id="cep" label="cep" value="#{clienteBean.cliente.endereco.cep}" size="40" placeholder="Ex: 00.000-000" mask="99.999-999" required="true" />
+				
+				<p:outputLabel for="logradouro" value="Logradouro:" />
+				<p:inputText id="logradouro" label="logradouro" value="#{clienteBean.cliente.endereco.logradouro}" size="40" placeholder="Ex: Avenida Paulista" />
+				
+				<p:outputLabel for="complemento" value="Complemento:" />
+				<p:inputText id="complemento" label="complemento" value="#{clienteBean.cliente.endereco.complemento}" size="40" placeholder="Ex: lugares próximos" />
+				
+				<p:outputLabel for="numero" value="Nª:" />
+				<p:inputText id="numero" label="numero" value="#{clienteBean.cliente.endereco.numero}" size="10" placeholder="EX: 00" />
+				
+				<p:outputLabel for="bairro" value="Bairro:" />
+				<p:inputText id="bairro" label="bairro" value="#{clienteBean.cliente.endereco.bairro}" size="40" placeholder="Ex: Bela vista" />
+				
+				<p:outputLabel for="cidade" value="Cidade:" />
+				<p:inputText id="cidade" label="cidade" value="#{clienteBean.cliente.endereco.cidade}" size="40" placeholder="Ex: São Paulo" />
+				
+				<p:outputLabel for="uf" value="UF: " />
+					<p:selectOneMenu id="uf" label="uf" value="#{clienteBean.cliente.endereco.uf}" filter="true" >
+						<f:selectItem itemLabel="Selecione um estado" />
+						<f:selectItem itemValue="SP" itemLabel="São Paulo" />
+						<f:selectItem itemValue="PR" itemLabel="Paraná" />
+						<f:selectItem itemValue="AC" itemLabel="Acre" />
+						<f:selectItem itemValue="AL" itemLabel="Alagoas" />
+						<f:selectItem itemValue="AP" itemLabel="Amapá" />
+						<f:selectItem itemValue="AM" itemLabel="Amazonas" />
+						<f:selectItem itemValue="BA" itemLabel="Bahia" />
+						<f:selectItem itemValue="CE" itemLabel="Ceará" />
+						<f:selectItem itemValue="DF" itemLabel="Brasília - Distrito Federal" />
+						<f:selectItem itemValue="ES" itemLabel="Espírito Santo" />
+						<f:selectItem itemValue="GO" itemLabel="Goiás" />
+						<f:selectItem itemValue="MA" itemLabel="Maranhão" />
+						<f:selectItem itemValue="MT" itemLabel="Mato Grosso" />
+						<f:selectItem itemValue="MS" itemLabel="Mato Grosso do Sul" />
+						<f:selectItem itemValue="MG" itemLabel="Minas Gerais" />
+						<f:selectItem itemValue="PB" itemLabel="Paraíba" />
+						<f:selectItem itemValue="PA" itemLabel="Pará" />
+						<f:selectItem itemValue="PE" itemLabel="Pernambuco" />
+						<f:selectItem itemValue="PI" itemLabel="Piauí" />
+						<f:selectItem itemValue="RJ" itemLabel="Rio de Janeiro" />
+						<f:selectItem itemValue="RN" itemLabel="Rio Grande do Norte" />
+						<f:selectItem itemValue="RS" itemLabel="Rio Grande do Sul" />
+						<f:selectItem itemValue="RO" itemLabel="Rondônia" />
+						<f:selectItem itemValue="RR" itemLabel="Roraima" />
+						<f:selectItem itemValue="SC" itemLabel="Santa Catarina" />
+						<f:selectItem itemValue="SE" itemLabel="Sergipe" />
+						<f:selectItem itemValue="TO" itemLabel="Tocantins" />
+					</p:selectOneMenu>
+			</h:panelGrid>
+			
+			<div class="button-group">
+			  <p:commandButton id="btnSalvar" value="Salvar" title="Salvar" icon="fa fa-save" 
+			  	actionListener="#{clienteBean.salvar()}" update="@form" />
+			  
+			  <p:commandButton id="btnExcluir" value="Excluir" title="Excluir" icon="fa fa-trash-o" actionListener="#{clienteBean.excluir()}" 
+			  	update="@form" validateClient="true" rendered="#{clienteBean.cliente.id > 0}" >
+			  	<p:confirm header="Confirmação" message="Deseja realmente excluir ?" icon="fa fa-hand-o-right" />
+			  </p:commandButton>
+			  
+			  <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" closeOnEscape="true" >
+		          <p:commandButton value="Sim" title="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="fa fa-check-circle-o" />
+		          <p:commandButton value="Não" title="Não" type="button" styleClass="ui-confirmdialog-no" icon="fa fa-close" />
+		      </p:confirmDialog>
+
+			  <p:commandButton id="btnNovo" value="Novo" title="Novo" icon="fa fa-plus" actionListener="#{clienteBean.limparCampos()}" 
+			  	update="@form" immediate="true" process="@this" />
+			</div>
+			
+			<p:dataTable var="clienteCorrente" value="#{clienteBean.listaClientes}" rows="10" paginator="true"
+						 styleClass="data-table" emptyMessage="Registros não encontrados." rowsPerPageTemplate="5,10,15"
+						 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+						 currentPageReportTemplate="[ Exibindo de {startRecord} a {endRecord} no total de {totalRecords} - Página: {currentPage}/{totalPages} ]" >
+                   
+                    <f:facet name="header">
+                    	Lista de Clientes Cadastrados
+                    </f:facet>
+                    
+                    <p:column headerText="Id" sortBy="#{clienteCorrente.id}" filterBy="#{clienteCorrente.id}" style="width:90px; text-align: center;" >
+                           <h:outputText value="#{clienteCorrente.id}" />
+                    </p:column>
+                    
+                    <p:column headerText="Nome" sortBy="#{clienteCorrente.nome}" filterBy="#{clienteCorrente.nome}" style="text-align: center;" >
+                           <h:outputText value="#{clienteCorrente.nome}" />
+                    </p:column>
+  
+                    <p:column headerText="Data Nasc." sortBy="#{clienteCorrente.dataNascimento}" filterBy="#{clienteCorrente.dataNascimento}" style="text-align: center;" >
+                           <h:outputText value="#{clienteCorrente.dataNascimento}" >
+                           		<f:convertDateTime pattern="dd/MM/yyyy"/>
+                           </h:outputText>
+                    </p:column>
+                    
+                    <p:column headerText="Cidade" sortBy="#{clienteCorrente.endereco.cidade}" filterBy="#{clienteCorrente.endereco.cidade}" style="text-align: center;" >
+                           <h:outputText value="#{clienteCorrente.endereco.cidade}" />
+                    </p:column>
+                    
+                    <p:column headerText="UF" sortBy="#{clienteCorrente.endereco.uf}" filterBy="#{clienteCorrente.endereco.uf}" style="width:50px; text-align: center;" >
+                           <h:outputText value="#{clienteCorrente.endereco.uf}" />
+                    </p:column>
+                    
+                    <p:column headerText="Editar" style="width:55px" >
+			           <p:commandButton id="btnEditar" title="Editar" icon="fa fa-fw fa-edit" action="#{clienteBean.editar(clienteCorrente)}" update="@form" immediate="true" process="@this" >
+			           	<f:setPropertyActionListener value="#{cliente}" target="#{clienteBean.cliente}" />
+			           </p:commandButton>
+			       </p:column>
+             </p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
